@@ -4,26 +4,23 @@ using UnityEngine;
 
 public class ZonaMuerte : MonoBehaviour {
 
+    public Sumidero sumidero;
+
 	// Use this for initialization
 	void Start () {
 		
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		   
-	}
-
-
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.name == "Ball")
+        if(collision.gameObject.tag == "Ball")
         {
             GameObject ball = collision.gameObject;
 
-            ball.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+            ball.GetComponent<Potensia>().stop();
+
+
+            sumidero.parada(ball);
         }
     }
 }
