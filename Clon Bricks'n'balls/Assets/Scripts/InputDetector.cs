@@ -19,9 +19,9 @@ public class InputDetector : MonoBehaviour {
         if ((Input.GetMouseButtonUp(0) && !spawner.getDone()))
 
         {
-            /*
+            
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
+            Vector3 v = ray.GetPoint(1);
             //ray.
             Vector3 a = new Vector3(v.x-spawner.transform.position.x,v.y - spawner.transform.position.y,0);
 
@@ -32,7 +32,8 @@ public class InputDetector : MonoBehaviour {
             spawner.GetComponent<SpawnBalls>().setVel(a.x,a.y);
 
             spawner.GetComponent<SpawnBalls>().Spawner();
-            */
+            
+
         }
 #endif
 

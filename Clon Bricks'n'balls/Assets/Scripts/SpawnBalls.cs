@@ -7,21 +7,24 @@ public class SpawnBalls : MonoBehaviour {
     public Potensia ball;
     public Sumidero sumidero;
     public int numBalls;
+    public SpriteRenderer spriteBall;
     float velox, veloy;
     bool done = false;
     IEnumerator StartSpawning()
     {
         for (int i  = 0; i < numBalls; i++)
         {
-            GameObject x =Instantiate(ball.gameObject,new Vector3(gameObject.transform.position.x, gameObject.transform.position.y+0.2f, gameObject.transform.position.z),gameObject.transform.rotation);
+            GameObject x =Instantiate(ball.gameObject,new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z),gameObject.transform.rotation);
             x.GetComponent<Potensia>().impulso(velox, veloy);
             yield return new WaitForSeconds(0.04f);
         }
+        spriteBall.enabled = false;
     }
 
     public void RondaNueva(bool a)
     {
         done = a;
+        spriteBall.enabled = true;
     }
     public bool getDone()
     {
@@ -36,8 +39,10 @@ public class SpawnBalls : MonoBehaviour {
 
     public void Spawner()
     {
+        
         sumidero.empezarmos();
         done = true;
+        sumidero.Show();
         StartCoroutine("StartSpawning");
     }
 

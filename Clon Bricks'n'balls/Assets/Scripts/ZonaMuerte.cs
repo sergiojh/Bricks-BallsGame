@@ -15,9 +15,9 @@ public class ZonaMuerte : MonoBehaviour {
     {
         if(collision.gameObject.tag == "Ball")
         {
-            GameObject ball = collision.gameObject;
+            Potensia ball = collision.gameObject.GetComponent<Potensia>();
 
-            ball.GetComponent<Potensia>().stop();
+            ball.stop();
 
 
             sumidero.parada(ball);

@@ -13,10 +13,31 @@ public class Potensia : MonoBehaviour {
     {
         gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(velx, vely));
     }
-
-    public void moveTo(float x, float y)
+    public void MoveTo(Vector3 pos, float time, System.Action<Potensia> endMoveCallback = null)
     {
-        gameObject.transform.position.Set(x, y, 0);
+        StartCoroutine(MoveToCoroutine(pos, time, endMoveCallback));
     }
+
+
+    private IEnumerator MoveToCoroutine(Vector3 pos, float time, System.Action<Potensia> endMoveCallback = null)
+    {
+        float totalTicks = time / Time.fixedDeltaTime;
+        float distancePerTick = (pos - transform.position).magnitude / totalTicks;
+        Vector2 dir = (pos - transform.position).normalized;
+        Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
+        //Movimiento hasta la posición
+        for (int i = 0; i < totalTicks; i++)
+        {
+            rb.position += dir * distancePerTick;
+            yield return new WaitForFixedUpdate();
+        }
+
+        //Llama al callback
+        if (endMoveCallback != null)
+            endMoveCallback(this);
+
+        yield return null;
+    }
+
 
 }
